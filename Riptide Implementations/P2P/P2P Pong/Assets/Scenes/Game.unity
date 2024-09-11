@@ -302,9 +302,7 @@ MonoBehaviour:
   enemyPaddle: {fileID: 1984222462}
   ballThrower: {fileID: 973959117}
   ballRigidbody: {fileID: 975117057}
-  ballStartPosition: {x: 0, y: 0}
   ballStartVelocity: 5
-  maxAngleDeviation: 30
   playerScoreText: {fileID: 2142316372}
   enemyScoreText: {fileID: 1085094127}
   winScore: 10
@@ -2045,6 +2043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6517d2e6435fc364a8558a02ec9c444f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 0}
+  maxAngleDeviation: 30
 --- !u!4 &973959118
 Transform:
   m_ObjectHideFlags: 0

@@ -12,10 +12,10 @@ public class GameOver
     
     [Inject]
     private GameOver(Score score, 
-        [Inject(Id = GameOverMessageType.Win)] GameObject winMessage, 
-        [Inject(Id = GameOverMessageType.Lose)] GameObject loseMessage,
-        [Inject(Id = "win_score")] int winScore,
-        [Inject(Id = "game_over_screen")] GameObject gameOverScreen)
+        [Inject(Id = GameOverParameterType.WinMessage)] GameObject winMessage, 
+        [Inject(Id = GameOverParameterType.LoseMessage)] GameObject loseMessage,
+        [Inject(Id = GameOverParameterType.WinScore)] int winScore,
+        [Inject(Id = GameOverParameterType.GameOverScreen)] GameObject gameOverScreen)
     {
         _score = score;
         _winMessage = winMessage;
@@ -42,8 +42,10 @@ public class GameOver
     }
 }
 
-public enum GameOverMessageType
+public enum GameOverParameterType
 {
-    Win,
-    Lose
+    WinMessage,
+    LoseMessage,
+    GameOverScreen,
+    WinScore
 }

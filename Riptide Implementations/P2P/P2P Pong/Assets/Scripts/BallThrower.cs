@@ -7,23 +7,20 @@ public class BallThrower : MonoBehaviour
     public struct BallThrowerParameters
     {
         public float StartVelocity;
-        public Vector2 StartPosition;
         public Rigidbody2D BallRigidbody;
-        public float MaxAngleDeviation;
     }
     
+    [SerializeField] private Vector2 startPosition;
+    [SerializeField] private float maxAngleDeviation;
+    
     private float _startVelocity;
-    private Vector2 _startPosition;
     private Rigidbody2D _ballRigidbody;
-    private float _maxAngleDeviation;
 
     [Inject]
     private void Init(BallThrowerParameters parameter)
     {
         _startVelocity = parameter.StartVelocity;
-        _startPosition = parameter.StartPosition;
         _ballRigidbody = parameter.BallRigidbody;
-        _maxAngleDeviation = parameter.MaxAngleDeviation;
     }
 
     private void Start()
@@ -33,7 +30,7 @@ public class BallThrower : MonoBehaviour
 
     public void ThrowBall()
     {
-        _ballRigidbody.position = _startPosition;
+        _ballRigidbody.position = startPosition;
         var angle = GetRandomAngle();
         var direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
         _ballRigidbody.velocity = direction * _startVelocity;
@@ -44,18 +41,18 @@ public class BallThrower : MonoBehaviour
         var isRight = Random.Range(0, 2) == 0;
         if (isRight)
         {
-            return Random.Range(-_maxAngleDeviation, _maxAngleDeviation);
+            return Random.Range(-maxAngleDeviation, maxAngleDeviation);
         }
-        return Random.Range(180-_maxAngleDeviation, 180+_maxAngleDeviation);
+        return Random.Range(180-maxAngleDeviation, 180+maxAngleDeviation);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        var startPosition = new Vector3(_startPosition.x, _startPosition.y, 0);
-        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos(_maxAngleDeviation * Mathf.Deg2Rad), Mathf.Sin(_maxAngleDeviation * Mathf.Deg2Rad), 0));
-        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos((180 - _maxAngleDeviation) * Mathf.Deg2Rad), Mathf.Sin((180 - _maxAngleDeviation) * Mathf.Deg2Rad), 0));
-        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos((180 + _maxAngleDeviation) * Mathf.Deg2Rad), Mathf.Sin((180 + _maxAngleDeviation) * Mathf.Deg2Rad), 0));
-        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos(- _maxAngleDeviation * Mathf.Deg2Rad), Mathf.Sin(- _maxAngleDeviation * Mathf.Deg2Rad), 0));
+        var startPosition = new Vector3(this.startPosition.x, this.startPosition.y, 0);
+        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos(maxAngleDeviation * Mathf.Deg2Rad), Mathf.Sin(maxAngleDeviation * Mathf.Deg2Rad), 0));
+        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos((180 - maxAngleDeviation) * Mathf.Deg2Rad), Mathf.Sin((180 - maxAngleDeviation) * Mathf.Deg2Rad), 0));
+        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos((180 + maxAngleDeviation) * Mathf.Deg2Rad), Mathf.Sin((180 + maxAngleDeviation) * Mathf.Deg2Rad), 0));
+        Gizmos.DrawLine(startPosition, startPosition + new Vector3(Mathf.Cos(- maxAngleDeviation * Mathf.Deg2Rad), Mathf.Sin(- maxAngleDeviation * Mathf.Deg2Rad), 0));
     }
 }

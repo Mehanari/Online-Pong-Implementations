@@ -17,9 +17,7 @@ public class GameInstaller : MonoInstaller
     [Header("Ball settings")]
     [SerializeField] private BallThrower ballThrower;
     [SerializeField] private Rigidbody2D ballRigidbody;
-    [SerializeField] private Vector2 ballStartPosition = Vector2.zero;
     [SerializeField] private float ballStartVelocity = 10f;
-    [SerializeField] private float maxAngleDeviation = 30f;
     [Space]
     [Header("Score settings")]
     [SerializeField] private ScoreText playerScoreText;
@@ -45,17 +43,15 @@ public class GameInstaller : MonoInstaller
         Container.Bind<BallThrower.BallThrowerParameters>().FromInstance(new BallThrower.BallThrowerParameters
         {
             StartVelocity = ballStartVelocity,
-            StartPosition = ballStartPosition,
             BallRigidbody = ballRigidbody,
-            MaxAngleDeviation = maxAngleDeviation
         });
         Container.Bind<ScoreText>().WithId(ScoreTextType.Player).FromInstance(playerScoreText);
         Container.Bind<ScoreText>().WithId(ScoreTextType.Enemy).FromInstance(enemyScoreText);
         Container.Bind<Score>().AsSingle();
-        Container.Bind<int>().WithId("win_score").FromInstance(winScore);
-        Container.Bind<GameObject>().WithId(GameOverMessageType.Win).FromInstance(winMessage);
-        Container.Bind<GameObject>().WithId(GameOverMessageType.Lose).FromInstance(loseMessage);
-        Container.Bind<GameObject>().WithId("game_over_screen").FromInstance(gameOverScreen);
+        Container.Bind<int>().WithId(GameOverParameterType.WinScore).FromInstance(winScore);
+        Container.Bind<GameObject>().WithId(GameOverParameterType.WinMessage).FromInstance(winMessage);
+        Container.Bind<GameObject>().WithId(GameOverParameterType.LoseMessage).FromInstance(loseMessage);
+        Container.Bind<GameObject>().WithId(GameOverParameterType.GameOverScreen).FromInstance(gameOverScreen);
         Container.Bind<GameOver>().AsSingle();
     }
 }
